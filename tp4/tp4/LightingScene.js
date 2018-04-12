@@ -3,7 +3,7 @@ var degToRad = Math.PI / 180.0;
 var BOARD_WIDTH = 6.0;
 var BOARD_HEIGHT = 4.0;
 
-var BOARD_A_DIVISIONS = 30;
+var BOARD_A_DIVISIONS = 1;
 var BOARD_B_DIVISIONS = 100;
 
 class LightingScene extends CGFscene
@@ -32,11 +32,13 @@ class LightingScene extends CGFscene
 		// Scene elements
 		this.table = new MyTable(this);
 		this.wall = new Plane(this);
-		this.floor = new MyQuad(this);
+		this.leftwall = new MyQuad(this); 
+		this.floor = new MyQuad(this,0,0,10,12);
 		this.cyl = new MyCylinder(this,20,10);
 		this.prism = new MyPrism(this,9,10);
 
-		this.boardA = new Plane(this, BOARD_A_DIVISIONS);
+		
+		this.boardA = new Plane(this, BOARD_A_DIVISIONS,-0.25,1.25,0,1);
 		this.boardB = new Plane(this, BOARD_B_DIVISIONS);
 
 		// Materials
@@ -86,6 +88,32 @@ class LightingScene extends CGFscene
 		this.tableAppearance.setSpecular(0.6,0.3,0.1,1);
 		this.tableAppearance.setShininess(30);
 		this.tableAppearance.loadTexture("resources/images/table.png");
+		
+		this.floorAppearance = new CGFappearance(this);
+		this.floorAppearance.setAmbient(0.2,0.05,0.01,1);
+		this.floorAppearance.setDiffuse(0.40,0.20,0.06,1);
+		this.floorAppearance.setSpecular(0.6,0.3,0.1,1);
+		this.floorAppearance.setShininess(10);
+		this.floorAppearance.loadTexture("resources/images/floor.png");
+		
+			this.windowAppearance = new CGFappearance(this);
+		this.windowAppearance.loadTexture("resources/images/window.png");
+		this.windowAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
+		
+	
+		
+		this.slidesAppearance= new CGFappearance(this);
+		this.slidesAppearance.loadTexture("resources/images/slides.png");
+		this.slidesAppearance.setTextureWrap("CLAMP_TO_EDGE", "CLAMP_TO_EDGE");
+		this.slidesAppearance.setDiffuse(0.8,0.8,0.8,1);
+		this.slidesAppearance.setSpecular(0.2,0.2,0.2,1);
+		this.slidesAppearance.setShininess(10);
+
+		this.boardAppearance = new CGFappearance(this);
+		this.boardAppearance.loadTexture("resources/images/board.png");
+		this.boardAppearance.setDiffuse(0.2,0.2,0.2,1);
+		this.boardAppearance.setSpecular(0.6,0.6,0.6,1);
+		this.boardAppearance.setShininess(120);
 
 
 	};
@@ -192,7 +220,7 @@ class LightingScene extends CGFscene
 
 		// Floor
 		this.pushMatrix();
-			this.color.apply();
+			this.floorAppearance.apply();
 			this.translate(7.5, 0, 7.5);
 			this.rotate(-90 * degToRad, 1, 0, 0);
 			this.scale(15, 15, 0.2);
@@ -201,11 +229,11 @@ class LightingScene extends CGFscene
 
 		// Left Wall
 		this.pushMatrix();
-			this.materialDefault.apply();
+			this.windowAppearance.apply();
 			this.translate(0, 4, 7.5);
 			this.rotate(90 * degToRad, 0, 1, 0);
 			this.scale(15, 8, 0.2);
-			this.wall.display();
+			this.leftwall.display();
 		this.popMatrix();
 
 		// Plane Wall
@@ -234,19 +262,18 @@ class LightingScene extends CGFscene
 			this.translate(4, 4.5, 0.2);
 			this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
 
-			this.materialA.apply();
+			this.slidesAppearance.apply();
 			this.boardA.display();
 		this.popMatrix();
 
 		// Board B
-		this.pushMatrix();
-			this.translate(10.5, 4.5, 0.2);
-			this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-
-			this.materialB.apply();
-			this.boardB.display();
-		this.popMatrix();
-
+	this.pushMatrix();
+		this.translate(10.5, 4.5, 0.2);
+		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
+		//this.materialB.apply();
+		this.boardAppearance.apply();
+		this.boardB.display();
+	this.popMatrix();
 		// ---- END Scene drawing section
 	};
 };
