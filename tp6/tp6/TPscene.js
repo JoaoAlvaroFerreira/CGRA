@@ -24,9 +24,11 @@ class TPscene extends CGFscene
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
-        this.axis=  new CGFaxis(this);
         this.wheel = new MyWheel(this,20,3);
+        this.circle = new MyCircle(this,10);
+        this.semi = new MyLamp(this,10,4);
         this.cube = new MyUnitCubeQuad(this);
+        this.axis =  new CGFaxis(this);
         //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
 
         this.enableTextures(true);
@@ -130,51 +132,91 @@ class TPscene extends CGFscene
         //this.scale(5,2,1);
         // ---- END Geometric transformation section
 
+
         this.pushMatrix();
-        this.scale(2.3,2,2.5);
-        this.translate(0.2,0.6,0.5);
+        this.translate(2.6,0.5,2.75);
+        this.rotate(45*Math.PI/180.0,0,0,1);
+        this.scale(0.8,0.1,0.5);
         this.cube.display();
         this.popMatrix();
 
+        this.pushMatrix();
+        this.translate(3,0.5,2.75);
+        this.rotate(135*Math.PI/180.0,0,0,1);
+        this.scale(0.8,0.1,0.5);
+        this.cube.display();
+        this.popMatrix();
+        
+        //light 1
+        this.pushMatrix();
+        this.translate(4,0.4,0.4);
+        this.rotate(90*Math.PI/180.0,0,1,0);
+        this.scale(0.3,0.3,0.3);
+        this.circle.display();
+        this.rotate(180*Math.PI/180.0,0,1,0);
+        this.semi.display();
+        this.translate(3,0,0);
+        this.popMatrix();
+
+        //light 2
+        this.pushMatrix();
+        this.translate(4,0.4,2);
+        this.rotate(90*Math.PI/180.0,0,1,0);
+        this.scale(0.3,0.3,0.3);
+        this.circle.display();
+        this.rotate(180*Math.PI/180.0,0,1,0);
+        this.semi.display();
+        this.popMatrix();
+
+        //WindowsDoors
+        this.pushMatrix();
+        this.scale(2.3,2,2.5);
+        this.translate(0.2,0.5,0.5);
+        this.cube.display();
+        this.popMatrix();
+
+        //Hood
         this.pushMatrix();
         this.scale(2.2,0.8,2.5);
         this.translate(1.2,0.6,0.5);
         this.cube.display();
         this.popMatrix();
 
+        //*lowerbody
         this.pushMatrix();
         //this.axleAppearance.apply();
         this.translate(1.5,0,1.25);
-        this.scale(4.5,0.3,2.5);
+        this.scale(4.5,0.3,2.6);
         this.cube.display();
         this.popMatrix();
 
+
         //WHEELS
         this.pushMatrix();
-        this.scale(0.7,0.7,0.7);
+        this.scale(0.55,0.55,0.55);
         this.rotate(180*Math.PI/180.0,0,1,0);
         this.wheel.display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(3,0,0);
-        this.scale(0.7,0.7,0.7);
+        this.scale(0.55,0.55,0.55);
         this.rotate(180*Math.PI/180.0,0,1,0);
         this.wheel.display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(3,0,2.5);
-        this.scale(0.7,0.7,0.7);
+        this.scale(0.55,0.55,0.55);
         this.wheel.display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(0,0,2.5);
-        this.scale(0.7,0.7,0.7);
+        this.scale(0.55,0.55,0.55);
         this.wheel.display();
         this.popMatrix();
-        //
+        // 
 
 
         //this.translate(5,0,2);
@@ -188,6 +230,8 @@ class TPscene extends CGFscene
         //this.popMatrix();
         //this.obj.display();
         // ---- END Primitive drawing section
+
+        
 
     };
 

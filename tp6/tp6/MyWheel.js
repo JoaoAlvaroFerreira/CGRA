@@ -28,7 +28,13 @@ class MyWheel extends CGFobject
 		this.tireAppearance.setDiffuse(0.50,0.50,0.50,1);
 		this.tireAppearance.setSpecular(0.3,0.3,0.3,1);
 		this.tireAppearance.setShininess(20);
-    this.tireAppearance.loadTexture("resources/images/tire.png");
+		this.tireAppearance.loadTexture("resources/images/tire.png");
+
+		this.default = new CGFappearance(this.scene);
+		this.default.setAmbient(0.1,0.1,0.1,1);
+		this.default.setDiffuse(0.50,0.50,0.50,1);
+		this.default.setSpecular(0.3,0.3,0.3,1);
+		this.default.setShininess(20);
 	};
   display(){
 		this.scene.pushMatrix();
@@ -41,5 +47,7 @@ class MyWheel extends CGFobject
 		this.tireAppearance.apply();
 		this.cyl.display();
 		this.scene.popMatrix();
+
+		this.default.apply();
   };
 };
