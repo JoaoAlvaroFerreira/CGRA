@@ -27,7 +27,7 @@ class TPscene extends CGFscene
         this.axis=  new CGFaxis(this);
         this.wheel = new MyWheel(this,20,3);
         this.cube = new MyUnitCubeQuad(this);
-        this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
+        //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
 
         this.enableTextures(true);
 
@@ -36,7 +36,7 @@ class TPscene extends CGFscene
 		this.terrainApperance.setDiffuse((1/4)*(139/255),0.50,0.50,1);
 		this.terrainApperance.setSpecular(0.3,0.3,0.3,1);
 		this.terrainApperance.setShininess(10);
-        this.terrainApperance.loadTexture("resources/images/tire.png");
+        //this.terrainApperance.loadTexture("resources/images/tire.png");
 
              
         // NOTE: OpenGL transformation matrices are transposed
@@ -131,11 +131,19 @@ class TPscene extends CGFscene
         // ---- END Geometric transformation section
 
         this.pushMatrix();
+        this.scale(2.3,2,2.5);
+        this.translate(0.2,0.6,0.5);
         this.cube.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.axleAppearance.apply();
+        this.scale(2.2,0.8,2.5);
+        this.translate(1.2,0.6,0.5);
+        this.cube.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        //this.axleAppearance.apply();
         this.translate(1.5,0,1.25);
         this.scale(4.5,0.3,2.5);
         this.cube.display();
