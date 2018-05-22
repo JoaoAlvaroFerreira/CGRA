@@ -28,6 +28,7 @@ class TPscene extends CGFscene
         this.circle = new MyCircle(this,10);
         this.semi = new MyLamp(this,10,4);
         this.cube = new MyUnitCubeQuad(this);
+        this.prism = new MyPrism(this,3,2);
         this.axis =  new CGFaxis(this);
         //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
 
@@ -131,19 +132,86 @@ class TPscene extends CGFscene
         //this.multMatrix(this.sca);     // GT = GT * sca
         //this.scale(5,2,1);
         // ---- END Geometric transformation section
+        this.pushMatrix();
+        this.translate(-0.4,0.5,-0.25);
+        this.rotate(45*Math.PI/180.0,0,0,1);
+        this.scale(0.53,0.1,0.5);
+        this.cube.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(0.4,0.5,-0.25);
+        this.rotate(135*Math.PI/180.0,0,0,1);
+        this.scale(0.53,0.1,0.5);
+        this.cube.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(0,0.68,-0.25);
+        this.scale(0.53,0.1,0.5);
+        this.cube.display();
+        this.popMatrix();
+
+
+        this.pushMatrix();
+        this.translate(2.6,0.5,-0.25);
+        this.rotate(45*Math.PI/180.0,0,0,1);
+        this.scale(0.53,0.1,0.5);
+        this.cube.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(3.4,0.5,-0.25);
+        this.rotate(135*Math.PI/180.0,0,0,1);
+        this.scale(0.53,0.1,0.5);
+        this.cube.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(3,0.68,-0.25);
+        this.scale(0.53,0.1,0.5);
+        this.cube.display();
+        this.popMatrix();
 
 
         this.pushMatrix();
         this.translate(2.6,0.5,2.75);
         this.rotate(45*Math.PI/180.0,0,0,1);
-        this.scale(0.8,0.1,0.5);
+        this.scale(0.53,0.1,0.5);
         this.cube.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(3,0.5,2.75);
+        this.translate(3.4,0.5,2.75);
         this.rotate(135*Math.PI/180.0,0,0,1);
-        this.scale(0.8,0.1,0.5);
+        this.scale(0.53,0.1,0.5);
+        this.cube.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(0,0.68,2.75);
+        this.scale(0.53,0.1,0.5);
+        this.cube.display();
+        this.popMatrix();
+
+
+        this.pushMatrix();
+        this.translate(-0.4,0.5,2.75);
+        this.rotate(45*Math.PI/180.0,0,0,1);
+        this.scale(0.53,0.1,0.5);
+        this.cube.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(0.4,0.5,2.75);
+        this.rotate(135*Math.PI/180.0,0,0,1);
+        this.scale(0.53,0.1,0.5);
+        this.cube.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(3,0.68,2.75);
+        this.scale(0.53,0.1,0.5);
         this.cube.display();
         this.popMatrix();
         
