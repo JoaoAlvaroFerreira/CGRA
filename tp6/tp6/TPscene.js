@@ -28,11 +28,30 @@ class TPscene extends CGFscene
         this.circle = new MyCircle(this,10);
         this.semi = new MyLamp(this,10,4);
         this.cube = new MyUnitCubeQuad(this);
-        this.prism = new MyPrism(this,3,2);
+        this.triang = new MyTriang(this);
         this.axis =  new CGFaxis(this);
         //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
 
         this.enableTextures(true);
+
+
+        this.white = new CGFappearance(this);
+        this.white.setAmbient((1/5)*(255/255),(1/5)*(255/255),(1/5)*(255/255));
+		this.white.setDiffuse((3/5)*(255/255),(3/5)*(255/255),(3/5)*(255/255),1);
+		this.white.setSpecular((8/10)*(255/255),(8/10)*(255/255),(8/10)*(255/255),1);
+        this.white.setShininess(300);
+
+        this.gold = new CGFappearance(this);
+        this.gold.setAmbient((1/5)*(255/255),(1/5)*(215/255),(1/5)*(0/255));
+		this.gold.setDiffuse((3/5)*(255/255),(3/5)*(215/255),(3/5)*(0/255),1);
+		this.gold.setSpecular((8/10)*(255/255),(8/10)*(215/255),(8/10)*(0/255),1);
+        this.gold.setShininess(300);
+        
+        this.red = new CGFappearance(this);
+        this.red.setAmbient((1/5)*(220/255),(1/5)*(20/255),(1/5)*(60/255));
+		this.red.setDiffuse((3/5)*(220/255),(3/5)*(20/255),(3/5)*(60/255),1);
+		this.red.setSpecular((8/10)*(220/255),(8/10)*(20/255),(8/10)*(60/255),1);
+		this.red.setShininess(10);
 
         this.terrainApperance = new CGFappearance(this.scene);
 		this.terrainApperance.setAmbient((1/4)*(139/255),(1/4)*(69/255),(1/4)*(19/255),1);
@@ -132,7 +151,21 @@ class TPscene extends CGFscene
         //this.multMatrix(this.sca);     // GT = GT * sca
         //this.scale(5,2,1);
         // ---- END Geometric transformation section
+
+
+
         this.pushMatrix();
+        this.red.apply();
+        this.translate(1.61,1.38,1.25);
+        this.rotate(90*Math.PI/180.0,0,0,1);
+        this.rotate(90*Math.PI/180.0,1,0,0);
+        this.scale(1.25,2.5,0.5);
+        this.triang.display();
+        this.popMatrix();
+
+        
+        this.pushMatrix();
+        this.white.apply();
         this.translate(-0.4,0.5,-0.25);
         this.rotate(45*Math.PI/180.0,0,0,1);
         this.scale(0.53,0.1,0.5);
@@ -217,6 +250,7 @@ class TPscene extends CGFscene
         
         //light 1
         this.pushMatrix();
+        this.gold.apply();
         this.translate(4,0.4,0.4);
         this.rotate(90*Math.PI/180.0,0,1,0);
         this.scale(0.3,0.3,0.3);
@@ -238,6 +272,7 @@ class TPscene extends CGFscene
 
         //WindowsDoors
         this.pushMatrix();
+        this.red.apply();
         this.scale(2.3,2,2.5);
         this.translate(0.2,0.5,0.5);
         this.cube.display();
@@ -252,6 +287,7 @@ class TPscene extends CGFscene
 
         //*lowerbody
         this.pushMatrix();
+        this.white.apply();
         //this.axleAppearance.apply();
         this.translate(1.5,0,1.25);
         this.scale(4.5,0.3,2.6);
@@ -284,7 +320,7 @@ class TPscene extends CGFscene
         this.scale(0.55,0.55,0.55);
         this.wheel.display();
         this.popMatrix();
-        // 
+        
 
 
         //this.translate(5,0,2);
