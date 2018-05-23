@@ -29,6 +29,7 @@ class TPscene extends CGFscene
         this.semi = new MyLamp(this,10,4);
         this.cube = new MyUnitCubeQuad(this);
         this.triang = new MyTriang(this);
+        this.exhaust = new MyPrism(this,6,1);
         this.axis =  new CGFaxis(this);
         //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
 
@@ -153,6 +154,14 @@ class TPscene extends CGFscene
         // ---- END Geometric transformation section
 
 
+        this.pushMatrix();
+        this.white.apply();
+        this.translate(-1,0.3,2.1);
+        this.rotate(90*Math.PI/180.0,0,1,0);
+        //this.rotate(90*Math.PI/180.0,1,0,0);
+        this.scale(0.1,0.1,0.5);
+        this.exhaust.display();
+        this.popMatrix();
 
         this.pushMatrix();
         this.red.apply();
