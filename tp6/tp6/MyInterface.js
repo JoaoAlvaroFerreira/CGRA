@@ -35,7 +35,7 @@ class MyInterface extends CGFinterface {
 
 		//var group=this.gui.addFolder("Options");
 		var lightsGroup = this.gui.addFolder("Lighting Management");
-		lightsGroup.open();
+		lightsGroup.close();
 
 		// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
 		// e.g. this.option1=true; this.option2=false;
@@ -51,7 +51,7 @@ class MyInterface extends CGFinterface {
 		
 		this.gui.add(this.scene, 'Brightness', -10, 10);
 	
-		this.gui.add(this.scene, 'vehiclePattern', { red: 0, gold: 1, white: 2, neon: 3, desert: 4, urban: 5, jungle: 6} );
+		this.gui.add(this.scene, 'currentAppearance', this.scene.vehicleAppearanceList );
 	
 		this.initKeys();
 

@@ -20,7 +20,7 @@ class TPscene extends CGFscene
 		//this.chao = new MyTerrain(this.scene);
 
 
-        this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+         this.gl.clearColor(135/255, 206/255, 235/255, 1.0); 
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
@@ -29,14 +29,15 @@ class TPscene extends CGFscene
       
         this.axis =  new CGFaxis(this);
 		this.vehicle = new MyVehicle(this);
-		this.chao = new Plane(this, 100, 0, 6, 0, 6);
+		this.chao = new Plane(this, 100, 0, 6, 0, 6); 
+        this.sky = new MySky(this,60,100); 
         //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
 
         this.enableTextures(true);
 
 		//MyInterface Variables
 		this.Lights1=true; 
-		this.Lights2=false;
+		this.Lights2=true;
 		this.AxisSwitch = true;
 		this.Brightness = 3;
 		this.setUpdatePeriod(1000 / 60);
@@ -68,32 +69,22 @@ class TPscene extends CGFscene
         //this.terrainAppearance.loadTexture("resources/images/tire.png");
 		
 		this.neon = new CGFappearance(this);
-        this.neon.setAmbient((1/5)*(220/255),(1/5)*(20/255),(1/5)*(60/255));
-		this.neon.setDiffuse((3/5)*(220/255),(3/5)*(20/255),(3/5)*(60/255),1);
-		this.neon.setSpecular((8/10)*(220/255),(8/10)*(20/255),(8/10)*(60/255),1);
-		this.neon.setShininess(10);
 		this.neon.loadTexture("resources/images/neonGrid.jpg");
 
 		this.desert = new CGFappearance(this);
-        this.desert.setAmbient((1/5)*(220/255),(1/5)*(20/255),(1/5)*(60/255));
-		this.desert.setDiffuse((3/5)*(220/255),(3/5)*(20/255),(3/5)*(60/255),1);
-		this.desert.setSpecular((8/10)*(220/255),(8/10)*(20/255),(8/10)*(60/255),1);
-		this.desert.setShininess(10);
 		this.desert.loadTexture("resources/images/desertCamo.jpg");
 		
 		this.urban = new CGFappearance(this);
-        this.urban.setAmbient((1/5)*(220/255),(1/5)*(20/255),(1/5)*(60/255));
-		this.urban.setDiffuse((3/5)*(220/255),(3/5)*(20/255),(3/5)*(60/255),1);
-		this.urban.setSpecular((8/10)*(220/255),(8/10)*(20/255),(8/10)*(60/255),1);
-		this.urban.setShininess(10);
 		this.urban.loadTexture("resources/images/urbanCamo.jpg");
 
 		this.jungle = new CGFappearance(this);
-        this.jungle.setAmbient((1/5)*(220/255),(1/5)*(20/255),(1/5)*(60/255));
-		this.jungle.setDiffuse((3/5)*(220/255),(3/5)*(20/255),(3/5)*(60/255),1);
-		this.jungle.setSpecular((8/10)*(220/255),(8/10)*(20/255),(8/10)*(60/255),1);
-		this.jungle.setShininess(10);
 		this.jungle.loadTexture("resources/images/woodsCamo.jpg");
+		
+		this.naruto = new CGFappearance(this);
+		this.naruto.loadTexture("resources/images/Naruto.png");
+		
+		this.usa = new CGFappearance(this);
+		this.usa.loadTexture("resources/images/USA.png");
 
 		
 		//RESKINS
@@ -101,7 +92,7 @@ class TPscene extends CGFscene
 		
         
 			 
-		this.vehicleAppearances = [this.red, this.gold, this.white, this.neon, this.desert, this.urban, this.jungle];
+		this.vehicleAppearances = [this.red, this.gold, this.white, this.neon, this.desert, this.urban, this.jungle, this.naruto, this.usa];
 		this.vehicleAppearanceList = {
 			
 			'red' : 0,
@@ -110,11 +101,12 @@ class TPscene extends CGFscene
 			'neon' : 3,
 			'desert' : 4,
 			'urban' : 5,
-			'jungle' : 6
+			'jungle' : 6,
+			'naruto': 7,
+			'usa': 8
 		};
 		
-		this.vehiclePattern = 'red';
-		this.currentAppearance = this.vehicleAppearanceList[this.vehiclePattern];
+		this.currentAppearance = 0;
 
 	
 		
@@ -158,6 +150,11 @@ class TPscene extends CGFscene
         this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
         this.lights[0].enable();
         this.lights[0].update();
+		
+		this.lights[1].setPosition(0, 20, 0, 1); 
+        this.lights[1].setDiffuse(1.0,1.0,1.0,1.0); 
+        this.lights[1].enable(); 
+        this.lights[1].update(); 
 
     };
 
@@ -266,8 +263,6 @@ class TPscene extends CGFscene
 	
 
 	update(currTime) {
-		
-		this.currentAppearance = this.vehicleAppearanceList[this.vehiclePattern];
 		
 		this.checkKeys();
 	
