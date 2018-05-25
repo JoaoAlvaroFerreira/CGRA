@@ -29,7 +29,7 @@ class TPscene extends CGFscene
       
         this.axis =  new CGFaxis(this);
 		this.vehicle = new MyVehicle(this);
-        this.chao = new Plane(this, 100, 0, 6, 0, 6);
+        this.chao = new MyTerrain(this);
         this.sky = new MySky(this,60,100);
         //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
 
