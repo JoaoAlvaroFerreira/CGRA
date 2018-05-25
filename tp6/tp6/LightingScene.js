@@ -43,7 +43,9 @@ class TPscene extends CGFscene
 		this.terrainApperance.setSpecular(0.3,0.3,0.3,1);
 		this.terrainApperance.setShininess(10);
       //  this.terrainApperance.loadTexture("resources/images/tire.png");
-
+	  
+	  
+	
              
         // NOTE: OpenGL transformation matrices are transposed
 
@@ -123,11 +125,6 @@ class TPscene extends CGFscene
 
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-
-        // Draw axis
-		if(this.AxisSwitch){
-	   this.axis.display();
-		}
 
         this.setDefaultAppearance();
 

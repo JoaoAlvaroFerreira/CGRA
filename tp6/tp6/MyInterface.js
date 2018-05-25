@@ -48,8 +48,11 @@ class MyInterface extends CGFinterface {
 		 this.Brightness =3;
 		// min and max values can be specified as parameters
 
-		this.gui.add(this.scene, 'Brightness', -10, 10);
 		
+		this.gui.add(this.scene, 'Brightness', -10, 10);
+	
+		this.gui.add(this.scene, 'vehiclePattern', { red: 0, gold: 1, white: 2, neon: 3, desert: 4, urban: 5, jungle: 6} );
+	
 		this.initKeys();
 
 		return true;
