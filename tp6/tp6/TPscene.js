@@ -20,7 +20,7 @@ class TPscene extends CGFscene
 		//this.chao = new MyTerrain(this.scene);
 
 
-        this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        this.gl.clearColor(135/255, 206/255, 235/255, 1.0);
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
@@ -29,7 +29,8 @@ class TPscene extends CGFscene
       
         this.axis =  new CGFaxis(this);
 		this.vehicle = new MyVehicle(this);
-		this.chao = new Plane(this, 100, 0, 6, 0, 6);
+        this.chao = new Plane(this, 100, 0, 6, 0, 6);
+        this.sky = new MySky(this,60,100);
         //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
 
         this.enableTextures(true);
@@ -159,6 +160,11 @@ class TPscene extends CGFscene
         this.lights[0].enable();
         this.lights[0].update();
 
+        this.lights[1].setPosition(0, 20, 0, 1);
+        this.lights[1].setDiffuse(1.0,1.0,1.0,1.0);
+        this.lights[1].enable();
+        this.lights[1].update();
+
     };
 
     initCameras()
@@ -224,7 +230,15 @@ class TPscene extends CGFscene
 		this.scale(32, 32, 0.2);
 		this.desert.apply();
 		this.chao.display();
-		this.popMatrix();
+        this.popMatrix();
+        
+/*
+        this.pushMatrix();
+        this.rotate(-90*Math.PI/180.0,1,0,0);
+        this.scale(100,100,100);
+        this.white.apply();
+		this.sky.display();
+		this.popMatrix();*/
 
         //this.translate(5,0,2);
         //this.rotate(Math.PI*30/180.0,0,1,0);
