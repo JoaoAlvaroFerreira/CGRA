@@ -88,6 +88,7 @@ class MyInterface extends CGFinterface {
 		}
 		processKeyDown(event) {
 		this.activeKeys[event.code]=true;
+		this.scene.vehicle.move(event.keyCode);
 		};
 		processKeyUp(event) {
 		this.activeKeys[event.code]=false;

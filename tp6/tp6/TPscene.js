@@ -29,6 +29,7 @@ class TPscene extends CGFscene
       
         this.axis =  new CGFaxis(this);
 		this.vehicle = new MyVehicle(this);
+		this.chao = new Plane(this, 100, 0, 6, 0, 6);
         //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
 
         this.enableTextures(true);
@@ -212,8 +213,17 @@ class TPscene extends CGFscene
         //this.scale(5,2,1);
         // ---- END Geometric transformation section
 
-
+		this.pushMatrix();
+		this.translate(this.vehicle.carX, 0, this.vehicle.carY);
 		this.vehicle.display();
+		this.popMatrix();
+		
+		this.pushMatrix();
+		this.rotate(3/2*3.14, 1, 0, 0);
+		this.scale(32, 32, 0.2);
+		this.red.apply();
+		this.chao.display();
+		this.popMatrix();
 
         //this.translate(5,0,2);
         //this.rotate(Math.PI*30/180.0,0,1,0);
@@ -241,6 +251,7 @@ class TPscene extends CGFscene
 		{
 		text+=" W ";
 		keysPressed=true;
+	//	this.vehicle.move('W');
 		}
 		if (this.gui.isKeyPressed("KeyS"))
 		{

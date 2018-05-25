@@ -16,6 +16,9 @@
         this.cube = new MyUnitCubeQuad(scene);
         this.triang = new MyTriang(scene);
         this.exhaust = new MyPrism(scene,6,1);
+		
+		this.carX = 1;
+		this.carY = 1;
 	};
 	
 	display(){
@@ -198,10 +201,30 @@
         this.wheel.display();
         this.scene.popMatrix();
         
+	
 	}
 	
-	movimento(deltaTime, velocity, speed){
+	move(key){
 		
+		if (key == 97 || key == 65) { //a || A
+				this.carY += this.carY + 0.01;
+			}
+
+			if (key == 115 || key == 83) { //s || S
+				this.carY -= this.carY + 0.01;
+
+			}
+
+			if (key == 100 || key == 68) { //d || D
+				this.carX += this.carX + 0.01;
+
+			}
+
+			if (key == 119 || key == 87) { //w || W
+				this.carX -= this.carX + 0.01;			
+			}		
+				
+			
 		
-	}
+}
 }
