@@ -59,12 +59,13 @@ class TPscene extends CGFscene
 		this.red.setSpecular((8/10)*(220/255),(8/10)*(20/255),(8/10)*(60/255),1);
 		this.red.setShininess(10);
 
-        this.terrainApperance = new CGFappearance(this.scene);
-		this.terrainApperance.setAmbient((1/4)*(139/255),(1/4)*(69/255),(1/4)*(19/255),1);
-		this.terrainApperance.setDiffuse((1/4)*(139/255),0.50,0.50,1);
-		this.terrainApperance.setSpecular(0.3,0.3,0.3,1);
-		this.terrainApperance.setShininess(10);
-        //this.terrainApperance.loadTexture("resources/images/tire.png");
+        this.terrainAppearance = new CGFappearance(this.scene);
+		this.terrainAppearance.setAmbient((1/4)*(139/255),(1/4)*(69/255),(1/4)*(19/255),1);
+		this.terrainAppearance.setDiffuse((1/4)*(139/255),0.50,0.50,1);
+		this.terrainAppearance.setSpecular(0.3,0.3,0.3,1);
+		this.terrainAppearance.setShininess(10);
+		
+        //this.terrainAppearance.loadTexture("resources/images/tire.png");
 		
 		this.neon = new CGFappearance(this);
         this.neon.setAmbient((1/5)*(220/255),(1/5)*(20/255),(1/5)*(60/255));
@@ -221,7 +222,7 @@ class TPscene extends CGFscene
 		this.pushMatrix();
 		this.rotate(3/2*3.14, 1, 0, 0);
 		this.scale(32, 32, 0.2);
-		this.red.apply();
+		this.desert.apply();
 		this.chao.display();
 		this.popMatrix();
 

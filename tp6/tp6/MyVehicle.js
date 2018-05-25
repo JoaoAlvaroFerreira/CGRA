@@ -152,7 +152,7 @@
 
         //WindowsDoors
         this.scene.pushMatrix();
-		this.scene.vehicleAppearances[0].apply();
+		this.scene.vehicleAppearances[5].apply();
         this.scene.scale(2.3,2,2.5);
         this.scene.translate(0.2,0.5,0.5);
         this.cube.display();
@@ -206,25 +206,37 @@
 	
 	move(key){
 		
-		if (key == 97 || key == 65) { //a || A
-				this.carY += this.carY + 0.01;
-			}
+		 switch(key){		
+		 
+		 case 65: this.carY -= this.carY + 0.01; //a
+		 break;
+		 case 83: this.carX -= this.carX + 0.01; //s
+		 break;
+		 case 68: this.carY -= this.carY + 0.01; //d
+		 break;
+		 case 87: this.carX += this.carX + 0.01; //w
+		 break;
+		 default: return;
+		 
+		// if (key == 97 || key == 65) { //a || A
+				// this.carY -= this.carY + 0.01;
+			// }
 
-			if (key == 115 || key == 83) { //s || S
-				this.carY -= this.carY + 0.01;
+			// if (key == 115 || key == 83) { //s || S
+				// this.carX -= this.carX + 0.01;
 
-			}
+			// }
 
-			if (key == 100 || key == 68) { //d || D
-				this.carX += this.carX + 0.01;
+			// if (key == 100 || key == 68) { //d || D
+				// this.carY -= this.carY + 0.01;
 
-			}
+			// }
 
-			if (key == 119 || key == 87) { //w || W
-				this.carX -= this.carX + 0.01;			
-			}		
+			// if (key == 119 || key == 87) { //w || W
+				// this.carX += this.carX + 0.01;			
+			// }		
 				
 			
-		
+		}
 }
 }
