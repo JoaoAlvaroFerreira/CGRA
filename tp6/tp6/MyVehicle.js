@@ -202,8 +202,28 @@
         this.scene.popMatrix();
         
 	
-	}
-	
+    }
+    move()
+		{
+		if (this.scene.gui.isKeyPressed("KeyW"))
+		{
+            this.carX +=  0.01;	
+		}
+		if (this.scene.gui.isKeyPressed("KeyS"))
+		{
+            this.carX -= 0.01;
+        }
+        if (this.scene.gui.isKeyPressed("KeyA"))
+		{
+            this.carY -= 0.01;
+        }
+        if (this.scene.gui.isKeyPressed("KeyD"))
+		{
+			this.carY += 0.01;
+        }
+    }
+        
+	/*
 	move(key){
 		
 		
@@ -228,5 +248,5 @@
 				
 			
 		
-    }
+    }*/
 }

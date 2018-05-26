@@ -300,6 +300,16 @@ class TPscene extends CGFscene
 		{
 		text+=" S ";
 		keysPressed=true;
+        }
+        if (this.gui.isKeyPressed("KeyA"))
+		{
+		text+=" A ";
+		keysPressed=true;
+        }
+        if (this.gui.isKeyPressed("KeyD"))
+		{
+		text+=" A ";
+		keysPressed=true;
 		}
 		if (keysPressed)
 		console.log(text);
@@ -309,7 +319,8 @@ class TPscene extends CGFscene
 
 	update(currTime) {
 		
-		this.checkKeys();
+        this.checkKeys();
+        this.vehicle.move();
 	
 };
 	
