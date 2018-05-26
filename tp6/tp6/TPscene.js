@@ -308,7 +308,7 @@ class TPscene extends CGFscene
         }
         if (this.gui.isKeyPressed("KeyD"))
 		{
-		text+=" A ";
+		text+=" D ";
 		keysPressed=true;
 		}
 		if (keysPressed)
