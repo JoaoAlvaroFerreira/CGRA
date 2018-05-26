@@ -20,7 +20,7 @@ class TPscene extends CGFscene
 		//this.chao = new MyTerrain(this.scene);
 
 
-         this.gl.clearColor(135/255, 206/255, 235/255, 1.0); 
+        this.gl.clearColor(135/255, 206/255, 235/255, 1.0); 
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
@@ -29,9 +29,11 @@ class TPscene extends CGFscene
       
         this.axis =  new CGFaxis(this);
 		this.vehicle = new MyVehicle(this);
-        this.sky = new MySky(this,60,100); 
-        //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
-
+        this.sky = new MySky(this,60,100);
+        this.cil = new MyCylClosed(this,10,2);
+        this.rectangle = new MyUnitCubeQuad(this);
+        this.crane = new MyCrane(this);
+        this.park = new Plane(this,1,0,1,0,1);
         this.enableTextures(true);
 
 		//MyInterface Variables
@@ -46,6 +48,12 @@ class TPscene extends CGFscene
 		this.white.setDiffuse((3/5)*(255/255),(3/5)*(255/255),(3/5)*(255/255),1);
 		this.white.setSpecular((8/10)*(255/255),(8/10)*(255/255),(8/10)*(255/255),1);
         this.white.setShininess(300);
+
+        this.black = new CGFappearance(this);
+        this.black.setAmbient(0,0,0);
+		this.black.setDiffuse(0.2,0.2,0.2);
+		this.black.setSpecular(0.3,0.3,0.3);
+        this.black.setShininess(300);
 
         this.gold = new CGFappearance(this);
         this.gold.setAmbient((1/5)*(255/255),(1/5)*(215/255),(1/5)*(0/255));
@@ -92,16 +100,16 @@ class TPscene extends CGFscene
 		
 		//RESKINS 
         var altimetry = [
-        [3.0, 5.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 0.0,10.0,1.0], 
-        [2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 0.0,10.0,3.0], 
-        [0.0, 0.0, 0.0, .0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,2.0], 
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,6.0], 
-        [0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
-        [6.4, 3.0, 2.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
-        [2.0, 7.0, -1.0, -3.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
-        [6.4, 2.0, 6.0, 2.0, 5.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
-        [8.0, -1.0, 2.0, 1.0, 2.5, 3.4, 2.3, 1.3, 0.0,10.0,3.0],
-        [3.0, 5.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 0.0,10.0,1.0],
+        [3.0, 5.0, 2.0, 4.0, 2.5, 2.4, 2.3, 0.0, 0.0,10.0,1.0], 
+        [2.0, 0.0, 0.0, 4.0, 7.5, 6.4, 4.3, 0.0, 0.0,8.0,3.0], 
+        [0.0, 0.0, 0.0, .0, 0.0, 0.0, 0.0, 0.0, 0.0,6.0,2.0], 
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,5.0,6.0], 
+        [0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,-2.0,9.0], 
+        [6.4, 3.0, 2.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,4.0,9.0], 
+        [2.0, 7.0, -1.0, -3.0, 0.0, 0.0, 0.0, 0.0, 0.0,3.0,9.0], 
+        [6.4, 2.0, 6.0, 2.0, 5.0, 0.0, 0.0, 0.0, 0.0,9.0,9.0], 
+        [8.0, -1.0, 2.0, 0.0, 2.5, 3.4, 2.3, 0.0, 0.0,3.0,3.0],
+        [3.0, 5.0, 2.0, 4.0, 2.5, 2.4, 2.3, 0.0, 0.0,7.0,1.0],
         [2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 0.0,10.0,3.0]
         ]; 
  
@@ -230,6 +238,7 @@ class TPscene extends CGFscene
         //this.scale(5,2,1);
         // ---- END Geometric transformation section
 
+        
 		this.pushMatrix();
 		this.translate(this.vehicle.carX, 0.55, this.vehicle.carY);
 		this.vehicle.display();
@@ -242,7 +251,21 @@ class TPscene extends CGFscene
 		this.chao.display();
         this.popMatrix();  
 
-        
+        //CRANE
+        this.pushMatrix();
+        this.translate(-20,0,-10);
+        this.rotate(180*Math.PI/180,0,1,0);
+		this.crane.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.black.apply();
+        this.translate(-14,0.2,-10);
+        this.scale(7,1,5);
+        this.rotate(270*Math.PI/180,1,0,0);
+        this.park.display();
+        this.popMatrix();
+        //}
 
 
         //this.translate(5,0,2);

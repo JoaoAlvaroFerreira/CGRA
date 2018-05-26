@@ -24,7 +24,7 @@ class MyCylinder extends CGFobject
 		this.normals = [];
 		this.texCoords = [];
 		for(var j = 0; j < this.stacks; j++){
-			for(var i = 0; i < 2*this.slices; i++){
+			for(var i = 0; i < 2*this.slices + (this.slices / 2); i++){
 				//desinhar um retangulo
 				if(i == 0){
 					this.vertices.push(Math.cos(i*angle),Math.sin(i*angle),v*j); //ponto 0
