@@ -1,181 +1,190 @@
 var TERRAIN_DIVISIONS = 50;
 
 
-class TPscene extends CGFscene {
-    constructor() {
+class TPscene extends CGFscene
+{
+    constructor()
+    {
         super();
     }
 
 
-    init(application) {
+    init(application)
+    {
         super.init(application);
 
         this.initCameras();
 
         this.initLights();
+		
+		//this.chao = new MyTerrain(this.scene);
 
-        //this.chao = new MyTerrain(this.scene);
 
-
-        this.gl.clearColor(135 / 255, 206 / 255, 235 / 255, 1.0);
+         this.gl.clearColor(135/255, 206/255, 235/255, 1.0); 
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
-
-        this.axis = new CGFaxis(this);
-        this.vehicle = new MyVehicle(this);
-        this.sky = new MySky(this, 60, 100);
+      
+        this.axis =  new CGFaxis(this);
+		this.vehicle = new MyVehicle(this);
+		this.chao = new Plane(this, 100, 0, 6, 0, 6); 
+        this.sky = new MySky(this,60,100); 
         //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
 
         this.enableTextures(true);
 
-        //MyInterface Variables
-        this.Lights1 = true;
-        this.Lights2 = true;
-        this.AxisSwitch = true;
-        this.Brightness = 3;
-        this.setUpdatePeriod(1000 / 60);
+		//MyInterface Variables
+		this.Lights1=true; 
+		this.Lights2=true;
+		this.AxisSwitch = true;
+		this.Brightness = 3;
+		this.setUpdatePeriod(1000 / 60);
 
         this.white = new CGFappearance(this);
-        this.white.setAmbient((1 / 5) * (255 / 255), (1 / 5) * (255 / 255), (1 / 5) * (255 / 255));
-        this.white.setDiffuse((3 / 5) * (255 / 255), (3 / 5) * (255 / 255), (3 / 5) * (255 / 255), 1);
-        this.white.setSpecular((8 / 10) * (255 / 255), (8 / 10) * (255 / 255), (8 / 10) * (255 / 255), 1);
+        this.white.setAmbient((1/5)*(255/255),(1/5)*(255/255),(1/5)*(255/255));
+		this.white.setDiffuse((3/5)*(255/255),(3/5)*(255/255),(3/5)*(255/255),1);
+		this.white.setSpecular((8/10)*(255/255),(8/10)*(255/255),(8/10)*(255/255),1);
         this.white.setShininess(300);
 
         this.gold = new CGFappearance(this);
-        this.gold.setAmbient((1 / 5) * (255 / 255), (1 / 5) * (215 / 255), (1 / 5) * (0 / 255));
-        this.gold.setDiffuse((3 / 5) * (255 / 255), (3 / 5) * (215 / 255), (3 / 5) * (0 / 255), 1);
-        this.gold.setSpecular((8 / 10) * (255 / 255), (8 / 10) * (215 / 255), (8 / 10) * (0 / 255), 1);
+        this.gold.setAmbient((1/5)*(255/255),(1/5)*(215/255),(1/5)*(0/255));
+		this.gold.setDiffuse((3/5)*(255/255),(3/5)*(215/255),(3/5)*(0/255),1);
+		this.gold.setSpecular((8/10)*(255/255),(8/10)*(215/255),(8/10)*(0/255),1);
         this.gold.setShininess(300);
-
+        
         this.red = new CGFappearance(this);
-        this.red.setAmbient((1 / 5) * (220 / 255), (1 / 5) * (20 / 255), (1 / 5) * (60 / 255));
-        this.red.setDiffuse((3 / 5) * (220 / 255), (3 / 5) * (20 / 255), (3 / 5) * (60 / 255), 1);
-        this.red.setSpecular((8 / 10) * (220 / 255), (8 / 10) * (20 / 255), (8 / 10) * (60 / 255), 1);
-        this.red.setShininess(10);
+        this.red.setAmbient((1/5)*(220/255),(1/5)*(20/255),(1/5)*(60/255));
+		this.red.setDiffuse((3/5)*(220/255),(3/5)*(20/255),(3/5)*(60/255),1);
+		this.red.setSpecular((8/10)*(220/255),(8/10)*(20/255),(8/10)*(60/255),1);
+		this.red.setShininess(10);
 
         this.terrainAppearance = new CGFappearance(this.scene);
-        this.terrainAppearance.setAmbient((1 / 4) * (139 / 255), (1 / 4) * (69 / 255), (1 / 4) * (19 / 255), 1);
-        this.terrainAppearance.setDiffuse((1 / 4) * (139 / 255), 0.50, 0.50, 1);
-        this.terrainAppearance.setSpecular(0.3, 0.3, 0.3, 1);
-        this.terrainAppearance.setShininess(10);
-
+		this.terrainAppearance.setAmbient((1/4)*(139/255),(1/4)*(69/255),(1/4)*(19/255),1);
+		this.terrainAppearance.setDiffuse((1/4)*(139/255),0.50,0.50,1);
+		this.terrainAppearance.setSpecular(0.3,0.3,0.3,1);
+		this.terrainAppearance.setShininess(10);
+		
         //this.terrainAppearance.loadTexture("resources/images/tire.png");
+		
+		this.neon = new CGFappearance(this);
+		this.neon.loadTexture("resources/images/neonGrid.jpg");
 
-        this.neon = new CGFappearance(this);
-        this.neon.loadTexture("resources/images/neonGrid.jpg");
+		this.desert = new CGFappearance(this);
+		this.desert.loadTexture("resources/images/desertCamo.jpg");
+		
+		this.urban = new CGFappearance(this);
+		this.urban.loadTexture("resources/images/urbanCamo.jpg");
 
-        this.desert = new CGFappearance(this);
-        this.desert.loadTexture("resources/images/desertCamo.jpg");
+		this.jungle = new CGFappearance(this);
+		this.jungle.loadTexture("resources/images/woodsCamo.jpg");
+		
+		this.naruto = new CGFappearance(this);
+		this.naruto.loadTexture("resources/images/Naruto.png");
+		
+		this.usa = new CGFappearance(this);
+		this.usa.loadTexture("resources/images/USA.png");
 
-        this.urban = new CGFappearance(this);
-        this.urban.loadTexture("resources/images/urbanCamo.jpg");
+		
+		//RESKINS 
+        this.altimetry = [[2.0, 3.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 0.0], 
+        [2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 0.0], 
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 
+        [0.0, 0.0, 2.0, 4.0, 2.5, 2.4, 0.0, 0.0, 0.0], 
+        [0.0, 0.0, 2.0, 4.0, 3.5, 2.4, 0.0, 0.0, 0.0], 
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 
+        [2.0, 3.0, 2.0, 1.0, 2.5, 2.4, 2.3, 1.3, 0.0] 
+        ]; 
+ 
+        this.chao = new MyTerrain(this,8,this.altimetry); 
+		
+		
+        
+			 
+		this.vehicleAppearances = [this.red, this.gold, this.white, this.neon, this.desert, this.urban, this.jungle, this.naruto, this.usa];
+		this.vehicleAppearanceList = {
+			
+			'red' : 0,
+			'gold' : 1,
+			'white' : 2,
+			'neon' : 3,
+			'desert' : 4,
+			'urban' : 5,
+			'jungle' : 6,
+			'naruto': 7,
+			'usa': 8
+		};
+		
+		this.currentAppearance = 0;
 
-        this.jungle = new CGFappearance(this);
-        this.jungle.loadTexture("resources/images/woodsCamo.jpg");
-
-        this.naruto = new CGFappearance(this);
-        this.naruto.loadTexture("resources/images/Naruto.png");
-
-        this.usa = new CGFappearance(this);
-        this.usa.loadTexture("resources/images/USA.png");
-
-
-        //RESKINS
-        this.altimetry = [[2.0, 3.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 0.0],
-        [2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 0.0],
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        [0.0, 0.0, 2.0, 4.0, 2.5, 2.4, 0.0, 0.0, 0.0],
-        [0.0, 0.0, 2.0, 4.0, 3.5, 2.4, 0.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        [2.0, 3.0, 2.0, 1.0, 2.5, 2.4, 2.3, 1.3, 0.0]
-        ];
-
-        this.chao = new MyTerrain(this,8,this.altimetry);
-
-
-
-        this.vehicleAppearances = [this.red, this.gold, this.white, this.neon, this.desert, this.urban, this.jungle, this.naruto, this.usa];
-        this.vehicleAppearanceList = {
-
-            'red': 0,
-            'gold': 1,
-            'white': 2,
-            'neon': 3,
-            'desert': 4,
-            'urban': 5,
-            'jungle': 6,
-            'naruto': 7,
-            'usa': 8
-        };
-
-        this.currentAppearance = 0;
-
-
-
+	
+		
 
         // NOTE: OpenGL transformation matrices are transposed
 
         // Translate (5, 0, 2)
 
-        this.tra = [1.0, 0.0, 0.0, 0.0,
-            0.0, 1.0, 0.0, 0.0,
-            0.0, 0.0, 1.0, 0.0,
-            5.0, 0.0, 2.0, 1.0];
+        this.tra = [  1.0, 0.0, 0.0, 0.0,
+                    0.0, 1.0, 0.0, 0.0,
+                    0.0, 0.0, 1.0, 0.0,
+                    5.0, 0.0, 2.0, 1.0  ];
 
         // Rotate 30 degrees around Y
         // These constants would normally be pre-computed at initialization time
         // they are placed here just to simplify the example
 
-        this.deg2rad = Math.PI / 180.0;
+        this.deg2rad=Math.PI/180.0;
         var a_rad = 30.0 * this.deg2rad;
         var cos_a = Math.cos(a_rad);
         var sin_a = Math.sin(a_rad);
 
-        this.rot = [cos_a, 0.0, -sin_a, 0.0,
-            0.0, 1.0, 0.0, 0.0,
-            sin_a, 0.0, cos_a, 0.0,
-            0.0, 0.0, 0.0, 1.0];
+        this.rot = [ cos_a,  0.0,  -sin_a,  0.0,
+                    0.0,    1.0,   0.0,    0.0,
+                    sin_a,  0.0,   cos_a,  0.0,
+                    0.0,    0.0,   0.0,    1.0 ];
 
         // Scaling by (5,2,1)
 
-        this.sca = [5.0, 0.0, 0.0, 0.0,
-            0.0, 2.0, 0.0, 0.0,
-            0.0, 0.0, 1.0, 0.0,
-            0.0, 0.0, 0.0, 1.0];
+        this.sca = [ 5.0, 0.0, 0.0, 0.0,
+                    0.0, 2.0, 0.0, 0.0,
+                    0.0, 0.0, 1.0, 0.0,
+                    0.0, 0.0, 0.0, 1.0  ];
 
     };
 
-    initLights() {
+    initLights()
+    {
 
         this.lights[0].setPosition(2, 2, 5, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
         this.lights[0].enable();
         this.lights[0].update();
-
-        this.lights[1].setPosition(0, 20, 0, 1);
-        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[1].enable();
-        this.lights[1].update();
+		
+		this.lights[1].setPosition(0, 20, 0, 1); 
+        this.lights[1].setDiffuse(1.0,1.0,1.0,1.0); 
+        this.lights[1].enable(); 
+        this.lights[1].update(); 
 
     };
 
-    initCameras() {
+    initCameras()
+    {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     };
 
-    setDefaultAppearance() {
+    setDefaultAppearance()
+    {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     };
 
-    display() {
+    display()
+    {
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
@@ -189,11 +198,11 @@ class TPscene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
-
+      
         // Draw axis
-        if (this.AxisSwitch) {
-            this.axis.display();
-        }
+		if(this.AxisSwitch){
+	   this.axis.display();
+		}
 
 
         this.setDefaultAppearance();
@@ -214,17 +223,17 @@ class TPscene extends CGFscene {
         //this.scale(5,2,1);
         // ---- END Geometric transformation section
 
-        this.pushMatrix();
-        this.translate(this.vehicle.carX, 0, this.vehicle.carY);
-        this.vehicle.display();
-        this.popMatrix();
-
-        this.pushMatrix();
-        this.rotate(3 / 2 * 3.14, 1, 0, 0);
-        this.scale(32, 32, 0.2);
-        this.desert.apply();
-        this.chao.display();
-        this.popMatrix();
+		this.pushMatrix();
+		this.translate(this.vehicle.carX, 0, this.vehicle.carY);
+		this.vehicle.display();
+		this.popMatrix();
+		
+		this.pushMatrix();
+		this.rotate(3/2*3.14, 1, 0, 0);
+		this.scale(32, 32, 0.2);
+		this.desert.apply();
+		this.chao.display();
+		this.popMatrix();
 
         //this.translate(5,0,2);
         //this.rotate(Math.PI*30/180.0,0,1,0);
@@ -237,37 +246,40 @@ class TPscene extends CGFscene {
         //this.popMatrix();
         //this.obj.display();
         // ---- END Primitive drawing section
+		
+		//this.chao.display();
 
-        //this.chao.display();
-
-
-
-    };
-
-    checkKeys() {
-        var text = "Keys pressed: ";
-        var keysPressed = false;
-        if (this.gui.isKeyPressed("KeyW")) {
-            text += " W ";
-            keysPressed = true;
-            //	this.vehicle.move('W');
-        }
-        if (this.gui.isKeyPressed("KeyS")) {
-            text += " S ";
-            keysPressed = true;
-        }
-        if (keysPressed)
-            console.log(text);
-    }
-
-
-
-    update(currTime) {
-
-        this.checkKeys();
+        
 
     };
+	
+	checkKeys()
+		{
+		var text="Keys pressed: ";
+		var keysPressed=false;
+		if (this.gui.isKeyPressed("KeyW"))
+		{
+		text+=" W ";
+		keysPressed=true;
+	//	this.vehicle.move('W');
+		}
+		if (this.gui.isKeyPressed("KeyS"))
+		{
+		text+=" S ";
+		keysPressed=true;
+		}
+		if (keysPressed)
+		console.log(text);
+		}
 
+	
 
+	update(currTime) {
+		
+		this.checkKeys();
+	
+};
+	
+	
 
 };
