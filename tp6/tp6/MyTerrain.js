@@ -6,19 +6,28 @@
 
 class MyTerrain extends CGFobject{
 	
-	constructor(scene,nrDivs,vector = [])
+	constructor(scene,nrDivs,vector = new Array(nrDivs + 1).fill(0))
 	{
 		super(scene);
 		this.nrDivs = nrDivs;
 		this.vector = vector;
-		this.plano = new Plane(this.scene, nrDivs, 0, 1, 0, 1);
-	
+		this.plano = new MyPlane(this.scene,this.nrDivs, 0, 1, 0, 1,this.vector);
+		};
 		
-	};
 
 	display()
 	{
-		this.plano.indices = this.vector.slice(); //copIar vetor, não está a funcionar não sei porquê
+		/*
+		var yCoord = 0.5;
+		for(var i = 0; i < this.vector.length; i++){
+			var xCoord = -0.5;
+			for(var j = 0; j < this.vector.length; j++){
+			this.plano.vertices.push(xCoord, yCoord, this.vector[i][j]);
+			xCoord += this.patchLength;
+			}
+			yCoord -= this.patchLength;
+		}*/
+		
 		this.scene.pushMatrix();
      	this.plano.display();
     	this.scene.popMatrix();

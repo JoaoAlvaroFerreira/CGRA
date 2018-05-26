@@ -28,8 +28,8 @@ class TPscene extends CGFscene
 
       
         this.axis =  new CGFaxis(this);
+        this.plane = new MyQuad(this);
 		this.vehicle = new MyVehicle(this);
-		this.chao = new Plane(this, 100, 0, 6, 0, 6); 
         this.sky = new MySky(this,60,100); 
         //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
 
@@ -88,18 +88,19 @@ class TPscene extends CGFscene
 
 		
 		//RESKINS 
-        this.altimetry = [[2.0, 3.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 0.0], 
-        [2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 0.0], 
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 
-        [0.0, 0.0, 2.0, 4.0, 2.5, 2.4, 0.0, 0.0, 0.0], 
-        [0.0, 0.0, 2.0, 4.0, 3.5, 2.4, 0.0, 0.0, 0.0], 
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], 
-        [2.0, 3.0, 2.0, 1.0, 2.5, 2.4, 2.3, 1.3, 0.0] 
+        var altimetry = [
+        [3.0, 5.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 0.0,10.0,1.0], 
+        [2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 0.0,10.0,3.0], 
+        [0.0, 0.0, 0.0, .0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,2.0], 
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,6.0], 
+        [0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
+        [6.4, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
+        [6.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
+        [8.0, -1.0, 2.0, 1.0, 2.5, 3.4, 2.3, 1.3, 0.0,10.0,3.0]
         ]; 
  
-        this.chao = new MyTerrain(this,8,this.altimetry); 
+        this.chao = new MyTerrain(this,8,altimetry); 
 		
 		
         
@@ -229,11 +230,14 @@ class TPscene extends CGFscene
 		this.popMatrix();
 		
 		this.pushMatrix();
-		this.rotate(3/2*3.14, 1, 0, 0);
-		this.scale(32, 32, 0.2);
+		this.rotate(3/2*Math.PI, 1, 0, 0);
+		this.scale(50, 50, 0.3);
 		this.desert.apply();
 		this.chao.display();
-		this.popMatrix();
+        this.popMatrix();  
+
+        
+
 
         //this.translate(5,0,2);
         //this.rotate(Math.PI*30/180.0,0,1,0);
