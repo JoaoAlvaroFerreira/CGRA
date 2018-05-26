@@ -6,12 +6,12 @@
 
 class MyTerrain extends CGFobject{
 	
-	constructor(scene,nrDivs,vector = new Array(nrDivs + 1).fill(0))
+	constructor(scene,nrDivs,vector = new Array[nrDivs+1](nrDivs + 1).fill(0))
 	{
 		super(scene);
 		this.nrDivs = nrDivs;
 		this.vector = vector;
-		this.plano = new MyPlane(this.scene,this.nrDivs, 0, 1, 0, 1,this.vector);
+		this.plano = new MyPlane(this.scene,this.nrDivs, 0, 5, 0, 5,this.vector);
 		};
 		
 

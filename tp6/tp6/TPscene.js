@@ -28,7 +28,6 @@ class TPscene extends CGFscene
 
       
         this.axis =  new CGFaxis(this);
-        this.plane = new MyQuad(this);
 		this.vehicle = new MyVehicle(this);
         this.sky = new MySky(this,60,100); 
         //this.plane = new Plane(this,TERRAIN_DIVISIONS,-25,-25,26,26);
@@ -67,7 +66,11 @@ class TPscene extends CGFscene
 		this.terrainAppearance.setShininess(10);
 		
         //this.terrainAppearance.loadTexture("resources/images/tire.png");
-		
+
+        this.sand = new CGFappearance(this);
+		this.sand.loadTexture("resources/images/sand.png");
+        
+
 		this.neon = new CGFappearance(this);
 		this.neon.loadTexture("resources/images/neonGrid.jpg");
 
@@ -94,13 +97,15 @@ class TPscene extends CGFscene
         [0.0, 0.0, 0.0, .0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,2.0], 
         [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,6.0], 
         [0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
-        [6.4, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
-        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
-        [6.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
-        [8.0, -1.0, 2.0, 1.0, 2.5, 3.4, 2.3, 1.3, 0.0,10.0,3.0]
+        [6.4, 3.0, 2.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
+        [2.0, 7.0, -1.0, -3.0, 0.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
+        [6.4, 2.0, 6.0, 2.0, 5.0, 0.0, 0.0, 0.0, 0.0,10.0,9.0], 
+        [8.0, -1.0, 2.0, 1.0, 2.5, 3.4, 2.3, 1.3, 0.0,10.0,3.0],
+        [3.0, 5.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3, 0.0,10.0,1.0],
+        [2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 0.0,10.0,3.0]
         ]; 
  
-        this.chao = new MyTerrain(this,8,altimetry); 
+        this.chao = new MyTerrain(this,10,altimetry); 
 		
 		
         
@@ -160,10 +165,11 @@ class TPscene extends CGFscene
     {
 
         this.lights[0].setPosition(2, 2, 5, 1);
-        this.lights[0].setDiffuse(1.0,1.0,1.0,1.0);
+        this.lights[0].setDiffuse(1.0,1.0,1.0,0.5);
         this.lights[0].enable();
         this.lights[0].update();
-		
+        
+        
 		this.lights[1].setPosition(0, 20, 0, 1); 
         this.lights[1].setDiffuse(1.0,1.0,1.0,1.0); 
         this.lights[1].enable(); 
@@ -225,14 +231,14 @@ class TPscene extends CGFscene
         // ---- END Geometric transformation section
 
 		this.pushMatrix();
-		this.translate(this.vehicle.carX, 0, this.vehicle.carY);
+		this.translate(this.vehicle.carX, 0.55, this.vehicle.carY);
 		this.vehicle.display();
 		this.popMatrix();
 		
 		this.pushMatrix();
 		this.rotate(3/2*Math.PI, 1, 0, 0);
 		this.scale(50, 50, 0.3);
-		this.desert.apply();
+		this.sand.apply();
 		this.chao.display();
         this.popMatrix();  
 
