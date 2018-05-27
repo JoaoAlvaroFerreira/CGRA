@@ -239,8 +239,7 @@ class TPscene extends CGFscene
         // ---- END Geometric transformation section
 
         
-		this.pushMatrix();
-		this.translate(this.vehicle.carX, 0.55, this.vehicle.carY);
+        this.pushMatrix();
 		this.vehicle.display();
 		this.popMatrix();
 		
