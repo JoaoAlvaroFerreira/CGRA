@@ -38,8 +38,9 @@ class MyCrane extends CGFobject
 		
 		this.rotateHorizontal = 0;
 		this.rotateVertical = 0;
-		this.magnetOn = true;
+		this.magnetOn = false;
 		this.lapse = 0;
+		this.vehicle = null;
         
 	};
 
@@ -57,22 +58,31 @@ class MyCrane extends CGFobject
 		//BASE ROD
         this.scene.pushMatrix();
         this.white.apply();
+		this.scene.rotate(this.rotateHorizontal * Math.PI / 180, 0, 1, 0);
         this.scene.translate(0,3.5,0);
         this.scene.scale(0.5,7,0.5);
-		this.scene.rotate(this.rotateHorizontal,0,0,0);
 		this.rectangle.display();
         this.scene.popMatrix();
 		//INCLINED ROD
         this.scene.pushMatrix();
         this.white.apply();
+		this.scene.rotate(this.rotateHorizontal * Math.PI / 180, 0, 1, 0);
+		
         this.scene.translate(-2,8,0);
+		
         this.scene.rotate(60*Math.PI/180, 0, 0, 1);
+		this.scene.rotate(this.rotateVertical * Math.PI / 180, 0, 0, 1);
+		this.scene.translate(0, this.rotateVertical/25, 0);
+		
         this.scene.scale(0.5,5,0.5);
 		this.rectangle.display();
         this.scene.popMatrix();
+		
 		//CABLE
         this.scene.pushMatrix();
         this.black.apply();
+		this.scene.translate(-this.rotateVertical/25, -this.rotateVertical/25,0)
+		this.scene.rotate(this.rotateHorizontal * Math.PI / 180, 0, 1, 0);
         this.scene.translate(-4,9,0);
         this.scene.rotate(90*Math.PI/180, 1, 0, 0);
         this.scene.scale(0.1,0.1,5);
@@ -81,6 +91,8 @@ class MyCrane extends CGFobject
 		//MAGNET
         this.scene.pushMatrix();
         this.red.apply();
+		this.scene.translate(-this.rotateVertical/25, -this.rotateVertical/25,0)
+		this.scene.rotate(this.rotateHorizontal * Math.PI / 180, 0, 1, 0);
         this.scene.translate(-4,4,0);
         this.scene.rotate(90*Math.PI/180, 1, 0, 0);
         this.scene.scale(1,1,0.25);
@@ -89,10 +101,21 @@ class MyCrane extends CGFobject
 		//UPPER JOINT
         this.scene.pushMatrix();
         this.gold.apply();
+		this.scene.rotate(this.rotateHorizontal * Math.PI / 180, 0, 1, 0);
 		this.scene.translate(0,7,-0.3);
         this.scene.scale(0.6,0.6,0.6);
 		this.cil.display();
         this.scene.popMatrix();
+		
+		 if(this.magnetOn){
+		this.scene.pushMatrix();
+		this.scene.translate(-this.rotateVertical/25, -this.rotateVertical/25,0)
+		this.scene.rotate(this.rotateHorizontal * Math.PI / 180, 0, 1, 0);
+		this.scene.translate(-4,1.75,0);
+		this.scene.vehicle.display();
+		this.scene.popMatrix();
+			
+		 }
 		
 	};
 	
@@ -102,29 +125,45 @@ class MyCrane extends CGFobject
         if (this.lapse == 3) {
             if (this.scene.gui.isKeyPressed("KeyL")) {
 				
-				this.rotateHorizontal += 0.1;
-
+				this.rotateHorizontal += 1;
+				
             }
             if (this.scene.gui.isKeyPressed("KeyJ")) {
 				
-				this.rotateHorizontal -= 0.1;
+				
+				this.rotateHorizontal -= 1;
             }
       
             if (this.scene.gui.isKeyPressed("KeyK")) {
-            
-				this.rotateVertical += 0.1;
+				
+            if(this.rotateVertical < 12)
+				this.rotateVertical += 1;
+				
 			}
 			
 			 if (this.scene.gui.isKeyPressed("KeyI")) {
+				if(this.rotateVertical >-4)
+				this.rotateVertical -= 1;
 				
-				this.rotateVertical += 0.1;
 			}
 			 
 			 if(this.scene.gui.isKeyPressed("KeyP")){
-				 this.magnetOn = true;
+				this.turnMagnet();
 			 }
 		 this.lapse = 0;
 		}
+	
 	};
         
+	turnMagnet(){
+		
+		if(this.rotateVertical > 10){
+		if(this.magnetOn)
+			this.magnetOn = false;
+		else{
+			this.magnetOn = true;
+			
+		}
+		}
+	}
  };
