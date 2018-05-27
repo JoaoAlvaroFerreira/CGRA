@@ -238,6 +238,9 @@ class TPscene extends CGFscene
         //this.scale(5,2,1);
         // ---- END Geometric transformation section
 
+        this.pushMatrix();
+		this.vehicle.display();
+        this.popMatrix();  
         
         this.pushMatrix();
        if(!this.crane.magnetOn){
