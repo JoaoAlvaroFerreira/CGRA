@@ -91,8 +91,8 @@ class TPscene extends CGFscene
 		this.jungle = new CGFappearance(this);
 		this.jungle.loadTexture("resources/images/woodsCamo.jpg");
 		
-		this.naruto = new CGFappearance(this);
-		this.naruto.loadTexture("resources/images/Naruto.png");
+		this.professor = new CGFappearance(this);
+		this.professor.loadTexture("resources/images/professor.png");
 		
 		this.usa = new CGFappearance(this);
 		this.usa.loadTexture("resources/images/USA.png");
@@ -118,7 +118,7 @@ class TPscene extends CGFscene
 		
         
 			 
-		this.vehicleAppearances = [this.red, this.gold, this.white, this.neon, this.desert, this.urban, this.jungle, this.naruto, this.usa];
+		this.vehicleAppearances = [this.red, this.gold, this.white, this.neon, this.desert, this.urban, this.jungle, this.professor, this.usa];
 		this.vehicleAppearanceList = {
 			
 			'red' : 0,
@@ -128,7 +128,7 @@ class TPscene extends CGFscene
 			'desert' : 4,
 			'urban' : 5,
 			'jungle' : 6,
-			'naruto': 7,
+			'professor': 7,
 			'usa': 8
 		};
 		
@@ -321,9 +321,7 @@ class TPscene extends CGFscene
 		
         this.checkKeys();
         this.vehicle.move();
+		//this.crane.move();
 	
 };
-	
-	
-
 };

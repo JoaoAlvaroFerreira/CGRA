@@ -232,7 +232,7 @@ class MyVehicle extends CGFobject {
         }
         else{
             if (this.scene.gui.isKeyPressed("KeyA")) {
-                this.rotate(180 * Math.PI/180.0, 0, 1, 0);
+                this.rotate(90 * Math.PI/180.0, 0, 1, 0);
             }
             if (this.scene.gui.isKeyPressed("KeyD")) {
                 this.carY += 0.01;

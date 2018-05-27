@@ -35,6 +35,11 @@ class MyCrane extends CGFobject
 		this.red.setDiffuse((3/5)*(220/255),(3/5)*(20/255),(3/5)*(60/255),1);
 		this.red.setSpecular((8/10)*(220/255),(8/10)*(20/255),(8/10)*(60/255),1);
 		this.red.setShininess(10);
+		
+		this.rotateHorizontal = 0;
+		this.rotateVertical = 0;
+		this.magnetOn = true;
+		this.lapse = 0;
         
 	};
 
@@ -54,6 +59,7 @@ class MyCrane extends CGFobject
         this.white.apply();
         this.scene.translate(0,3.5,0);
         this.scene.scale(0.5,7,0.5);
+		this.scene.rotate(this.rotateHorizontal,0,0,0);
 		this.rectangle.display();
         this.scene.popMatrix();
 		//INCLINED ROD
@@ -83,9 +89,42 @@ class MyCrane extends CGFobject
 		//UPPER JOINT
         this.scene.pushMatrix();
         this.gold.apply();
-        this.scene.translate(0,7,-0.3);
+		this.scene.translate(0,7,-0.3);
         this.scene.scale(0.6,0.6,0.6);
 		this.cil.display();
         this.scene.popMatrix();
+		
 	};
-};
+	
+	move(){ 
+	this.lapse += 1;
+	
+        if (this.lapse == 3) {
+            if (this.scene.gui.isKeyPressed("KeyL")) {
+				
+				this.rotateHorizontal += 0.1;
+
+            }
+            if (this.scene.gui.isKeyPressed("KeyJ")) {
+				
+				this.rotateHorizontal -= 0.1;
+            }
+      
+            if (this.scene.gui.isKeyPressed("KeyK")) {
+            
+				this.rotateVertical += 0.1;
+			}
+			
+			 if (this.scene.gui.isKeyPressed("KeyI")) {
+				
+				this.rotateVertical += 0.1;
+			}
+			 
+			 if(this.scene.gui.isKeyPressed("KeyP")){
+				 this.magnetOn = true;
+			 }
+		 this.lapse = 0;
+		}
+	};
+        
+ };
