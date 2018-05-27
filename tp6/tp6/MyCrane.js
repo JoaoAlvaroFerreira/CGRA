@@ -114,7 +114,6 @@ class MyCrane extends CGFobject
 		this.scene.translate(-4,1.75,0);
 		this.scene.vehicle.display();
 		this.scene.popMatrix();
-			 
 			
 		 }
 		

@@ -21,6 +21,8 @@ class MyVehicle extends CGFobject {
         this.carX = 1;
         this.carY = 1;
         this.lapse = 0;
+		this.carAngle = 180 * degToRad;
+		this.wheelsAngle = 180 * degToRad;
     };
 
     display() {
