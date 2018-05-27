@@ -81,6 +81,7 @@ class MyCrane extends CGFobject
 		//CABLE
         this.scene.pushMatrix();
         this.black.apply();
+		this.scene.translate(-this.rotateVertical/25, -this.rotateVertical/25,0)
 		this.scene.rotate(this.rotateHorizontal * Math.PI / 180, 0, 1, 0);
         this.scene.translate(-4,9,0);
         this.scene.rotate(90*Math.PI/180, 1, 0, 0);
@@ -90,6 +91,7 @@ class MyCrane extends CGFobject
 		//MAGNET
         this.scene.pushMatrix();
         this.red.apply();
+		this.scene.translate(-this.rotateVertical/25, -this.rotateVertical/25,0)
 		this.scene.rotate(this.rotateHorizontal * Math.PI / 180, 0, 1, 0);
         this.scene.translate(-4,4,0);
         this.scene.rotate(90*Math.PI/180, 1, 0, 0);
@@ -107,6 +109,7 @@ class MyCrane extends CGFobject
 		
 		 if(this.magnetOn){
 		this.scene.pushMatrix();
+		this.scene.translate(-this.rotateVertical/25, -this.rotateVertical/25,0)
 		this.scene.rotate(this.rotateHorizontal * Math.PI / 180, 0, 1, 0);
 		this.scene.translate(-4,1.75,0);
 		this.scene.vehicle.display();
@@ -128,17 +131,21 @@ class MyCrane extends CGFobject
             }
             if (this.scene.gui.isKeyPressed("KeyJ")) {
 				
+				
 				this.rotateHorizontal -= 1;
             }
       
             if (this.scene.gui.isKeyPressed("KeyK")) {
-            
+				
+            if(this.rotateVertical < 12)
 				this.rotateVertical += 1;
+				
 			}
 			
 			 if (this.scene.gui.isKeyPressed("KeyI")) {
-				
+				if(this.rotateVertical >-4)
 				this.rotateVertical -= 1;
+				
 			}
 			 
 			 if(this.scene.gui.isKeyPressed("KeyP")){
@@ -151,11 +158,13 @@ class MyCrane extends CGFobject
         
 	turnMagnet(){
 		
+		if(this.rotateVertical > 10){
 		if(this.magnetOn)
 			this.magnetOn = false;
 		else{
 			this.magnetOn = true;
 			
+		}
 		}
 	}
  };
