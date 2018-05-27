@@ -38,7 +38,9 @@ class MyCrane extends CGFobject
 		
 		this.rotateHorizontal = 0;
 		this.rotateVertical = 0;
-		this.magnetOn = false;
+		this.carroSegurado = false;
+		this.horizontalDepositado = 0;
+		this.verticalDepositado = 0;
 		this.lapse = 0;
 		this.vehicle = null;
         
@@ -107,14 +109,26 @@ class MyCrane extends CGFobject
 		this.cil.display();
         this.scene.popMatrix();
 		
-		 if(this.magnetOn){
+		 if(this.carroSegurado && !this.scene.carroDepositado){
 		this.scene.pushMatrix();
 		this.scene.translate(-this.rotateVertical/25, -this.rotateVertical/25,0)
 		this.scene.rotate(this.rotateHorizontal * Math.PI / 180, 0, 1, 0);
-		this.scene.translate(-4,1.75,0);
+        this.scene.translate(-20,1.25,-10);
+        this.scene.rotate(180*Math.PI/180,0,1,0);
+		
+		this.scene.vehicle.display();
+        this.scene.popMatrix();
+			
+		 }
+		 
+		 if(this.scene.carroDepositado){
+		this.scene.pushMatrix();
+		this.scene.translate(-this.verticalDepositado/25, -this.verticalDepositado/25,0)
+		this.scene.rotate(this.horizontalDepositado * Math.PI / 180, 0, 1, 0);
+		this.scene.translate(-20,0,-10);
+        this.scene.rotate(180*Math.PI/180,0,1,0);
 		this.scene.vehicle.display();
 		this.scene.popMatrix();
-			
 		 }
 		
 	};
@@ -125,13 +139,16 @@ class MyCrane extends CGFobject
         if (this.lapse == 3) {
             if (this.scene.gui.isKeyPressed("KeyL")) {
 				
+				console.log(this.rotateHorizontal);
 				this.rotateHorizontal += 1;
+				
 				
             }
             if (this.scene.gui.isKeyPressed("KeyJ")) {
 				
-				
+				console.log(this.rotateHorizontal);
 				this.rotateHorizontal -= 1;
+			
             }
       
             if (this.scene.gui.isKeyPressed("KeyK")) {
@@ -155,15 +172,35 @@ class MyCrane extends CGFobject
 	
 	};
         
+		//-80 a -130 e 180 a 230
 	turnMagnet(){
 		
-		if(this.rotateVertical > 10){
-		if(this.magnetOn)
-			this.magnetOn = false;
+	
+		if(this.carroSegurado)
+		{
+			
+			if((this.rotateHorizontal < -60 && this.rotateHorizontal> -170)||(this.rotateHorizontal > 150 && this.rotateHorizontal < 260))
+			{
+				this.scene.carroDepositado = true;
+				this.verticalDepositado = this.rotateVertical;
+				this.horizontalDepositado = this.rotateHorizontal;
+				
+			}
+			
+		}
+		
 		else{
-			this.magnetOn = true;
+			
+		if(this.rotateVertical > 10 && (this.scene.vehicle.position[2] < -7 &&  this.scene.vehicle.position[2] > -11) && (this.scene.vehicle.position[0] < -11 &&  this.scene.vehicle.position[2] > -15)) 
+		
+		{
+		this.carroSegurado = true;
+			
 			
 		}
 		}
-	}
+		
+	};
+	
+	
  };

@@ -21,13 +21,15 @@ class MyVehicle extends CGFobject {
         this.speed = 0;
         this.position = [0, 0, 0];
         this.rotationSpeed = 0;
+		this.rotationWheels = 0; 
+        this.angleWheels = 0; 
     };
 
     display() {
         this.scene.translate(this.position[0], 0, this.position[2]);
-        
-        this.scene.translate(-1.5, 0, 0);
+   
         this.scene.rotate(this.angle, 0, 1, 0);
+		this.scene.translate(-1.5, 0, 0); 
         this.scene.translate(0, 0.55, -1.1);
 
         this.scene.pushMatrix();
@@ -183,31 +185,40 @@ class MyVehicle extends CGFobject {
         this.scene.pushMatrix();
         this.scene.scale(0.55, 0.55, 0.55);
         this.scene.rotate(180 * Math.PI / 180.0, 0, 1, 0);
+		this.scene.rotate(-this.rotationWheels*50*Math.PI/180,0,0,1);
         this.wheel.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
+		
         this.scene.translate(3, 0, 0);
         this.scene.scale(0.55, 0.55, 0.55);
         this.scene.rotate(180 * Math.PI / 180.0, 0, 1, 0);
+		this.scene.rotate(-this.rotationWheels*50*Math.PI/180,0,0,1);
         this.wheel.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(3, 0, 2.5);
         this.scene.scale(0.55, 0.55, 0.55);
+		this.scene.rotate(-this.rotationWheels*50*Math.PI/180,0,0,1);
         this.wheel.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
+
         this.scene.translate(0, 0, 2.5);
         this.scene.scale(0.55, 0.55, 0.55);
+		this.scene.rotate(-this.rotationWheels*50*Math.PI/180,0,0,1);
         this.wheel.display();
         this.scene.popMatrix();
+		
+
 
     }
     move() {
         
+	if(!this.scene.crane.carroSegurado || !this.scene.carroDepositado){
         if (this.scene.gui.isKeyPressed("KeyW")) {
 
             this.accelaration = 0.01;
@@ -230,9 +241,12 @@ class MyVehicle extends CGFobject {
             this.rotationSpeed = 0;
 
         this.updateMovement();
+	}
     }
 
     updateMovement() {
+		
+		
         this.speed += this.accelaration;
 
          if (this.speed > 0) //Makes speed = 0 when its near 0
@@ -254,36 +268,15 @@ class MyVehicle extends CGFobject {
         else if(this.speed <= -this.limit)
         this.speed = -this.limit; 
 
+		if(this.speed != 0) 
         this.angle += this.rotationSpeed;
+	
+		if(this.speed != 0) 
+        this.rotationWheels += this.speed; 
 
         this.position[0] += this.speed * Math.cos(this.angle);
         this.position[2] += -this.speed * Math.sin(this.angle);
+	
     }
 
-	/*
-	move(key){
-		
-		
-		 
-		if (key == 97 || key == 65) { //a || A
-				this.carY -= 0.01;
-			}
-
-			if (key == 115 || key == 83) { //s || S
-				this.carX -= 0.01;
-
-			}
-
-			if (key == 100 || key == 68) { //d || D
-				this.carY += 0.01;
-
-			}
-
-			if (key == 119 || key == 87) { //w || W
-				this.carX +=  0.01;			
-			}		
-				
-			
-		
-    }*/
 }

@@ -42,14 +42,19 @@ class MyInterface extends CGFinterface {
 
 		lightsGroup.add(this.scene, 'Lights1');
 		lightsGroup.add(this.scene, 'Lights2');
-		lightsGroup.add(this.scene, 'AxisSwitch');
+		
+		this.gui.add(this.scene, 'AxisSwitch');
+		this.gui.add(this.scene, 'SliderCraneManipulation');
+	
 
 		// must be a numeric variable of the scene, initialized in scene.init e.g.
-		 this.Brightness =3;
+		 this.Horizontal = 2 ;
+		 this.Vertical = 2;
 		// min and max values can be specified as parameters
 
 		
-		this.gui.add(this.scene, 'Brightness', -10, 10);
+		this.gui.add(this.scene, 'Horizontal', 0, 360);
+		this.gui.add(this.scene, 'Vertical', -4, 12);
 	
 		this.gui.add(this.scene, 'currentAppearance', this.scene.vehicleAppearanceList );
 	

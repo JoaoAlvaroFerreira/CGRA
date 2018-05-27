@@ -40,8 +40,13 @@ class TPscene extends CGFscene
 		this.Lights1=true; 
 		this.Lights2=true;
 		this.AxisSwitch = true;
-		this.Brightness = 3;
+		this.SliderCraneManipulation = false;
+		this.carroDepositado = false;
+	
+		this.Horizontal = 0 ;
+		this.Vertical = 0;
 		this.setUpdatePeriod(1000 / 60);
+		
 
         this.white = new CGFappearance(this);
         this.white.setAmbient((1/5)*(255/255),(1/5)*(255/255),(1/5)*(255/255));
@@ -107,10 +112,10 @@ class TPscene extends CGFscene
         [0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,-2.0,9.0], 
         [6.4, 3.0, 2.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,4.0,9.0], 
         [2.0, 7.0, -1.0, -3.0, 0.0, 0.0, 0.0, 0.0, 0.0,3.0,9.0], 
-        [6.4, 2.0, 6.0, 2.0, 5.0, 0.0, 0.0, 0.0, 0.0,9.0,9.0], 
+        [14.4, 2.0, 9.0, 3.0, 11.0, 7.0, 0.0, 0.0, 0.0,9.0,9.0], 
         [8.0, -1.0, 2.0, 0.0, 2.5, 3.4, 2.3, 0.0, 0.0,3.0,3.0],
         [3.0, 5.0, 2.0, 4.0, 2.5, 2.4, 2.3, 0.0, 0.0,7.0,1.0],
-        [2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 1.3, 0.0,10.0,3.0]
+        [2.0, 3.0, 2.0, 4.0, 7.5, 6.4, 4.3, 15.3, 0.0,10.0,3.0]
         ]; 
  
         this.chao = new MyTerrain(this,10,altimetry); 
@@ -238,17 +243,17 @@ class TPscene extends CGFscene
         //this.scale(5,2,1);
         // ---- END Geometric transformation section
 
-        this.pushMatrix();
-		this.vehicle.display();
-        this.popMatrix();  
-        
-        this.pushMatrix();
-       if(!this.crane.magnetOn){
-		this.pushMatrix();
-		this.translate(this.vehicle.carX, 0.55, this.vehicle.carY);
-		this.vehicle.display();
-		this.popMatrix();
-	   }
+		
+		if(!this.carroDepositado && !this.crane.carroSegurado){
+         this.pushMatrix();
+		 this.vehicle.display();
+         this.popMatrix();  
+        }
+      
+		
+       
+		
+	   
 	   
 		this.pushMatrix();
 		this.rotate(3/2*Math.PI, 1, 0, 0);
@@ -258,7 +263,7 @@ class TPscene extends CGFscene
         this.popMatrix();  
 
         //CRANE
-        this.pushMatrix();
+		this.pushMatrix();
         this.translate(-20,0,-10);
         this.rotate(180*Math.PI/180,0,1,0);
 		this.crane.display();
@@ -345,9 +350,38 @@ class TPscene extends CGFscene
 
 	update(currTime) {
 		
+		if(!this.Lights1){
+			this.lights[0].disable();
+			this.lights[0].update();
+		}
+		
+		if(this.Lights1){
+			this.lights[0].enable();
+			this.lights[0].update();
+		}
+		
+		if(!this.Lights2){
+			this.lights[1].disable();
+			this.lights[1].update();
+		}
+		
+		if(this.Lights2){
+			this.lights[1].enable();
+			this.lights[1].update();
+		}
+		
+		if(this.SliderCraneManipulation){
+		this.crane.rotateHorizontal = this.Horizontal;
+		this.crane.rotateVertical = this.Vertical;
+		}
         this.checkKeys();
+		
+		if(!this.crane.carroSegurado && !this.carroDepositado)
         this.vehicle.move();
+	
 		this.crane.move();
+		
+		
 	
 };
 };
