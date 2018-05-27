@@ -238,12 +238,13 @@ class TPscene extends CGFscene
         //this.scale(5,2,1);
         // ---- END Geometric transformation section
 
-        
+       if(!this.crane.magnetOn){
 		this.pushMatrix();
 		this.translate(this.vehicle.carX, 0.55, this.vehicle.carY);
 		this.vehicle.display();
 		this.popMatrix();
-		
+	   }
+	   
 		this.pushMatrix();
 		this.rotate(3/2*Math.PI, 1, 0, 0);
 		this.scale(50, 50, 0.3);
@@ -311,6 +312,26 @@ class TPscene extends CGFscene
 		text+=" D ";
 		keysPressed=true;
 		}
+		if (this.gui.isKeyPressed("KeyJ"))
+		{
+		text+=" J ";
+		keysPressed=true;
+		}
+		if (this.gui.isKeyPressed("KeyL"))
+		{
+		text+=" L ";
+		keysPressed=true;
+		}
+		if (this.gui.isKeyPressed("KeyI"))
+		{
+		text+=" I ";
+		keysPressed=true;
+		}
+		if (this.gui.isKeyPressed("KeyK"))
+		{
+		text+=" K ";
+		keysPressed=true;
+		}
 		if (keysPressed)
 		console.log(text);
 		}
@@ -321,7 +342,7 @@ class TPscene extends CGFscene
 		
         this.checkKeys();
         this.vehicle.move();
-		//this.crane.move();
+		this.crane.move();
 	
 };
 };
